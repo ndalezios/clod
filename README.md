@@ -1,2 +1,2 @@
 # culfi
-CADF Unified Logging Format Investigator
+C.U.L.F.I. stands for CADF Unified Logging Format Investigator
