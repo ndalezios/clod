@@ -1,0 +1,19 @@
+[
+{"event_type": "identity.authenticate",
+"timestamp": "2017-01-26 09:19:01.241364", "payload": {"typeURI":
+"http://schemas.dmtf.org/cloud/audit/1.0/event",
+"initiator": {"typeURI": "service/security/account/user",
+"host": {"agent": "keystoneauth1/2.3.0 python-requests/2.9.1CPython/2.7.6", 
+"address": "192.168.0.2"}, "user_id":
+"42ca947ab83c4b86b843fccd36826a21",
+"id": "42ca947ab83c4b86b843fccd36826a21"}, "target":
+{"typeURI": "service/security/account/user", "id":
+"17b4cc7f-0ddb-51c7-8a55-aba8304f943c"}, "observer":
+{"typeURI": "service/security", "id":
+"e14fa14a-fb58-55e3-b38a-0cff3f9bd6f1"},
+"eventType": "activity", "eventTime": "2017-01-26T09:19:01.139486+0000",
+"action": "authenticate", "outcome": "failure", "id":
+"d286943b-ce61-5e98-80b4-24aa5c92980a"},
+"priority": "INFO", "publisher_id": "identity.node-6.domain.tld",
+"message_id": "4879d940-505d-4dbf-9005-bafafd150f0c"}
+]
