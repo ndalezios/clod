@@ -1,6 +1,8 @@
 import sys
 import json
+from json.decoder import JSONDecodeError
 import argparse
+
 
 program_name = sys.argv[0]
 print(program_name)
@@ -16,7 +18,11 @@ input_file = args.input
 print("Parsing file : %s" %(input_file))
 	
 with open(input_file, "r") as input_data:
-    data = json.load(input_data)
+    try:
+	    data = json.load(input_data)
+    except JSONDecodeError:
+	    print("Not a valid JSON file")
+		
 print(json.dumps(data, indent=4))
 
 print("==============================================================")
