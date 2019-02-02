@@ -2,7 +2,7 @@ import sys
 import json
 from json import JSONDecodeError
 import argparse
-
+import constants
 
 def parse_file(infile):
 	print("Parsing file : %s" %(infile))
@@ -13,21 +13,34 @@ def parse_file(infile):
 			print("Not a valid JSON file")
 			outdata = []
 	return outdata
-    
-program_name = sys.argv[0]
-print(program_name)
+
+def parse_as_json(infile):
+	with open(infile, "r") as indata:
+		line = indata.readline()
+		print(constants.START_KEY)
+		print(constants.END_KEY)
+		while line:
+			#print(line)			
+			start_pos = line.find(constants.START_KEY)
+			end_pos = line.rfind(constants.END_KEY)
+			if (start_pos != -1) and (end_pos != -1):
+				print(line[start_pos:end_pos + 1])
+			line = indata.readline()
+
+
+#program_name = sys.argv[0]
+#print(program_name)
 #arguments = sys.argv[1:]
 #print(arguments)
 
-parser = argparse.ArgumentParser() 
-parser.add_argument("-i","--input", required=True, 
-	help="input file containing json CADF event records")
+parser = argparse.ArgumentParser()
+parser.add_argument("-i","--input", required=True, help="input file containing json CADF event records")
 args = parser.parse_args()
 
 input_file = args.input
-data = parse_file(input_file)
-if len(data) == 0 :
-	pass
+#data = parse_file(input_file)
+data = parse_as_json(input_file)
+"""
 else:
 	#print(json.dumps(data, indent=4))
 	print("==============================================================")
@@ -44,7 +57,7 @@ else:
 	print("EVENT_TYPE %s" %data[0]["eventType"])
 	print("--------------------------------------------------------------")
 	print("WHEN (eventTime UTC) %s" %data[0]["eventTime"])
-
+"""
 
 
 
