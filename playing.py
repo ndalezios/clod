@@ -16,19 +16,24 @@ def parse_file(infile):
     return outdata
 
 
-def parse_as_json(infile):
+def parse_as_text(infile):
     outdata = []
+    print("Assuming %s file is a text file containing JSON" % infile)
+    print("Trying to clear lines from garbage in head and tail...")
     with open(infile, "r") as indata:
         line = indata.readline()
-        print(constants.START_KEY)
-        print(constants.END_KEY)
+        #print(constants.START_KEY)
+        #print(constants.END_KEY)
         while line:
                 # print(line)
             start_pos = line.find(constants.START_KEY)
             end_pos = line.rfind(constants.END_KEY)
             if (start_pos != -1) and (end_pos != -1):
                 outdata.append(line[start_pos:end_pos + 1])
+            else :
+                outdata.append(line)
             line = indata.readline()
+    print("Processed %s lines" % len(outdata));
     return outdata
 
 
@@ -52,19 +57,24 @@ def print_resource(data_dict):
 
 
 def main():
+    data = []
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input", required=True,
                         help="input file containing json CADF event records")
     args = parser.parse_args()
     input_file = args.input
-    data = parse_file(input_file)
-    # data = parse_as_json(input_file)
+    #assume input is a text file
+    data = parse_as_text(input_file)
+
+    
+    #data = parse_file(input_file)
+    """
     print("==============================================================")
     print("Found %s CADF event records" % (len(data)))
     print("==============================================================")
     print("%s" % data[0])
     print("")
-
+"""
     # print(json_load)
 
     """for i in range(len(data)):
@@ -73,7 +83,7 @@ def main():
         print("--------------------------------------------------------------------")
         print(json.dumps(data[i], indent=4))
 	"""
-	
+    """
 
     print(json.dumps(data, indent=4))
     print(constants.BIG_DOC)
@@ -101,7 +111,7 @@ def main():
     print("===========================================")
     print_resource(data[0]["observer"])
 
-
+"""
 """
     print("==============================================================")
     print("OBSERVER %s" % data[0]["observer"])
