@@ -4,8 +4,8 @@ import argparse
 import constants
 
 
-def parse_file(infile):
-    """deserialize infile to a Python object"""
+def parse_as_json(indata):
+    """deserialize indata to a Python object"""
     print("Parsing file : %s" % (infile))
     with open(infile, "r") as indata:
         try:
@@ -21,16 +21,18 @@ def parse_as_text(infile):
     print("Assuming %s file is a text file containing JSON" % infile)
     print("Trying to clear lines from garbage in head and tail...")
     with open(infile, "r") as indata:
-        line = indata.readline()
-        #print(constants.START_KEY)
-        #print(constants.END_KEY)
+        line = indata.readline()        
         while line:
-                # print(line)
             start_pos = line.find(constants.START_KEY)
             end_pos = line.rfind(constants.END_KEY)
             if (start_pos != -1) and (end_pos != -1):
                 outdata.append(line[start_pos:end_pos + 1])
-            else :
+
+                print(line)
+                print(line[start_pos:end_pos + 1])
+                #input("Press Enter to continue...")
+
+            else:
                 outdata.append(line)
             line = indata.readline()
     print("Processed %s lines" % len(outdata));
@@ -63,11 +65,13 @@ def main():
                         help="input file containing json CADF event records")
     args = parser.parse_args()
     input_file = args.input
-    #assume input is a text file
+    # assume input is a text file
     data = parse_as_text(input_file)
+    # json_data = parse_as_json(data)
+    print("Found %s lines" % len(data))
+    input("Press Enter to continue...")
 
-    
-    #data = parse_file(input_file)
+    # data = parse_file(input_file)
     """
     print("==============================================================")
     print("Found %s CADF event records" % (len(data)))
@@ -77,13 +81,12 @@ def main():
 """
     # print(json_load)
 
-    """for i in range(len(data)):
-        print("--------------------------------------------------------------------")
+    for i in range(len(data)):        
         print("%s" % data[i])
         print("--------------------------------------------------------------------")
-        print(json.dumps(data[i], indent=4))
-	"""
-    """
+
+"""	
+    
 
     print(json.dumps(data, indent=4))
     print(constants.BIG_DOC)
