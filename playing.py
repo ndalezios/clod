@@ -6,8 +6,8 @@ import constants
 
 def parse_as_json(indata):
     """deserialize indata to a Python object"""
-    print("Parsing file : %s" % (infile))
-    with open(infile, "r") as indata:
+    print("Parsing file : %s" % (indata))
+    with open(indata, "r") as indata:
         try:
             outdata = json.load(indata)
         except JSONDecodeError:
@@ -18,24 +18,22 @@ def parse_as_json(indata):
 
 def parse_as_text(infile):
     outdata = []
-    print("Assuming %s file is a text file containing JSON" % infile)
-    print("Trying to clear lines from garbage in head and tail...")
+    print("Assuming %s file is a text file containing mixed JSON and text" % infile)
+    print("Trying to clear lines from garbage in head (START_KEY) and tail (END_KEY)...")
+    print("START_KEY : %s" %constants.START_KEY)
+    print("END_KEY : %s"  %constants.END_KEY)
+    print("to change START_KEY and END_KEY edit file constants.py")
     with open(infile, "r") as indata:
-        line = indata.readline()        
+        line = indata.readline()
         while line:
             start_pos = line.find(constants.START_KEY)
             end_pos = line.rfind(constants.END_KEY)
             if (start_pos != -1) and (end_pos != -1):
-                outdata.append(line[start_pos:end_pos + 1])
-
-                print(line)
-                print(line[start_pos:end_pos + 1])
-                #input("Press Enter to continue...")
-
+                outdata.append(line[start_pos:end_pos])
             else:
                 outdata.append(line)
             line = indata.readline()
-    print("Processed %s lines" % len(outdata));
+    print("Processed %s lines" % len(outdata))
     return outdata
 
 
@@ -68,24 +66,18 @@ def main():
     # assume input is a text file
     data = parse_as_text(input_file)
     # json_data = parse_as_json(data)
-    print("Found %s lines" % len(data))
-    input("Press Enter to continue...")
-
-    # data = parse_file(input_file)
-    """
     print("==============================================================")
     print("Found %s CADF event records" % (len(data)))
     print("==============================================================")
-    print("%s" % data[0])
-    print("")
+    input("Press Enter to continue...")
+    print(data[0])
+    print(data[1])
+    print(data[2])
+    print(data[3])
+    print(data.__class__)
+    print(data[0].__class__)
+    
 """
-    # print(json_load)
-
-    for i in range(len(data)):        
-        print("%s" % data[i])
-        print("--------------------------------------------------------------------")
-
-"""	
     
 
     print(json.dumps(data, indent=4))

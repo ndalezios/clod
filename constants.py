@@ -8,7 +8,7 @@ MESSAGE_ID = "message_id"
 
 START_KEY = '{"typeURI": "http://schemas.dmtf.org/cloud/audit/1.0/event"'
 
-END_KEY = "}"
+END_KEY = ', "priority"'
 
 BIG_DOC = """
   _____________________________________________________________________
