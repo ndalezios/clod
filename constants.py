@@ -6,7 +6,14 @@ PRIORITY = "priority"
 PUBLISHER_ID = "publisher_id"
 MESSAGE_ID = "message_id"
 
-START_KEY = '{"typeURI": "http://schemas.dmtf.org/cloud/audit/1.0/event"'
+# depending on the event logging producing plattform, 
+# event's head field may vary...
+# In this case we take all 4 cases regarding the white spaces around ":"
+# removing whitespaces from string is not an option
+START_KEY1 = '{"typeURI": "http://schemas.dmtf.org/cloud/audit/1.0/event"'
+START_KEY2 = '{"typeURI" :"http://schemas.dmtf.org/cloud/audit/1.0/event"'
+START_KEY3 = '{"typeURI" : "http://schemas.dmtf.org/cloud/audit/1.0/event"'
+START_KEY4 = '{"typeURI":"http://schemas.dmtf.org/cloud/audit/1.0/event"'
 
 END_KEY = ', "priority"'
 

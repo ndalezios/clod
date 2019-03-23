@@ -19,19 +19,44 @@ def parse_as_json(indata):
 def parse_as_text(infile):
     outdata = []
     print("Assuming %s file is a text file containing mixed JSON and text" % infile)
-    print("Trying to clear lines from garbage in head (START_KEY) and tail (END_KEY)...")
-    print("START_KEY : %s" %constants.START_KEY)
-    print("END_KEY : %s"  %constants.END_KEY)
-    print("to change START_KEY and END_KEY edit file constants.py")
+    print("Trying to clear lines from garbage in head (START_KEY) and tail...")
+    print("START_KEY : %s" % constants.START_KEY1)
+    # print("END_KEY : %s" % constants.END_KEY)
+    print("to change START_KEYs edit file constants.py")
     with open(infile, "r") as indata:
         line = indata.readline()
         while line:
-            start_pos = line.find(constants.START_KEY)
-            end_pos = line.rfind(constants.END_KEY)
+            if (line.find(constants.START_KEY1) != -1):
+                start_pos = line.find(constants.START_KEY1)
+            elif (line.find(constants.START_KEY2) != -1):
+                start_pos = line.find(constants.START_KEY2)
+            elif (line.find(constants.START_KEY3) != -1):
+                start_pos = line.find(constants.START_KEY3)
+            elif (line.find(constants.START_KEY4) != -1):
+                start_pos = line.find(constants.START_KEY4)
+            # print("############################################")
+            tmp_line = line[start_pos:]
+            # print("Just printing line1 from start_pos to end BEFORE %s" %
+            #     tmp_line)
+            while(tmp_line.count("{") < tmp_line.count("}")):
+                # print("tmp_line has %s occurances of { " % tmp_line.count("{"))
+                # print("tmp_line has %s occurances of } " % tmp_line.count("}"))
+                end_pos = tmp_line.rfind("}")
+                tmp_line = tmp_line[: end_pos]
+
+            end_pos = tmp_line.rfind("}") + 1
+            tmp_line = tmp_line[: end_pos]
+
+            # print("Just printing line1 from start_pos to end AFTER %s " %
+            #     tmp_line)
+            # print("############################################")
+            outdata.append(tmp_line)
+            """end_pos = line.rfind(constants.END_KEY)
             if (start_pos != -1) and (end_pos != -1):
                 outdata.append(line[start_pos:end_pos])
             else:
-                outdata.append(line)
+                outdata.append(line)"""
+
             line = indata.readline()
     print("Processed %s lines" % len(outdata))
     return outdata
@@ -65,7 +90,8 @@ def main():
     input_file = args.input
     # assume input is a text file
     data = parse_as_text(input_file)
-    # json_data = parse_as_json(data)
+    # json_data = parse_as_json(data) 
+
     print("==============================================================")
     print("Found %s CADF event records" % (len(data)))
     print("==============================================================")
@@ -73,10 +99,11 @@ def main():
     print(data[0])
     print(data[1])
     print(data[2])
-    print(data[3])
+    # print(data[3])
     print(data.__class__)
     print(data[0].__class__)
-    
+
+
 """
     
 
