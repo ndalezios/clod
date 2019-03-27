@@ -1,4 +1,4 @@
-# CLoD
+# C.Lo.D.
 CLoD (CADF Log Detective) :detective: is a python3 script that parses a log file containing CADF event records (in JSON format).
 
 Install dependencies from requirements.txt
