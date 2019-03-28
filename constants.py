@@ -1,3 +1,10 @@
+# MongoDB connection info
+# Set this according to your Mongo server information
+# Default is localhost
+MONGODB_CONN = "mongodb://localhost:27017/"
+
+
+
 # CADF event record map
 EVENT_TYPE = '\"event_type"'
 TIMESTAMP = "timestamp"
@@ -6,7 +13,7 @@ PRIORITY = "priority"
 PUBLISHER_ID = "publisher_id"
 MESSAGE_ID = "message_id"
 
-# depending on the event logging producing plattform, 
+# depending on the event logging producing plattform,
 # event's head field may vary...
 # In this case we take all 4 cases regarding the white spaces around ":"
 # removing whitespaces from string is not an option
@@ -15,7 +22,7 @@ START_KEY2 = '{"typeURI" :"http://schemas.dmtf.org/cloud/audit/1.0/event"'
 START_KEY3 = '{"typeURI" : "http://schemas.dmtf.org/cloud/audit/1.0/event"'
 START_KEY4 = '{"typeURI":"http://schemas.dmtf.org/cloud/audit/1.0/event"'
 
-END_KEY = ', "priority"'
+SEPARATOR = "=============================================================="
 
 BIG_DOC = """
   _____________________________________________________________________
