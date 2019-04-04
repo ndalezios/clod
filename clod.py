@@ -6,16 +6,10 @@ import pymongo
 from pymongo.errors import ConnectionFailure
 
 
-def parse_as_json(indata):
-    """deserialize indata to a Python object"""
-    print("Parsing file : %s" % (indata))
-    with open(indata, "r") as indata:
-        try:
-            outdata = json.load(indata)
-        except JSONDecodeError:
-            print("Not a valid JSON file")
-            outdata = []
-    return outdata
+def serializeToJSON(inlist):
+    """deserialize inlist to JSON"""
+    jsonString = json.dumps(inlist)
+    return jsonString
 
 
 def parse_as_text(infile):
@@ -97,25 +91,31 @@ def main():
     print("Found %s CADF event records" % (len(data)))
     print(constants.SEPARATOR)
     input("Press Enter to continue...")
-    print(data[0])
-    print(data[1])
-    print(data[2])
-    # print(data[3])
-    print(data.__class__)
-    print(data[0].__class__)
+    if (len(data) == 0):
+        print("No CADF records found.")
+        print("Exiting...")
+        return
 
     myclient = pymongo.MongoClient(constants.MONGODB_CONN)
     try:
         # The ismaster command is cheap and does not require auth.
         # It is used to check if a connection exists to database
-        print("Trying to connect to MongoDB. Please wait...")        
+        print("Trying to connect to MongoDB. Please wait...")
         myclient.admin.command('ismaster')
         print("Connection eshtablished....")
+
+        db = myclient[constants.MONGODB_DBNAME]
+        collection = db[constants.MONGODB_COLLECTION]
+
+        for d in data:
+            collection.insert_one(json.loads(d))
+
+        print("Successfully inserted %s records" % (len(data)))
+
     except ConnectionFailure:
-        print("Could not connect to server using connection string %s" %constants.MONGODB_CONN)
+        print("Could not connect to server using connection string %s" % constants.MONGODB_CONN)
         print("Is server alive and accepting connections ???")
         return
-
 
 """
     

@@ -2,6 +2,8 @@
 # Set this according to your Mongo server information
 # Default is localhost
 MONGODB_CONN = "mongodb://localhost:27017/"
+MONGODB_DBNAME = "cloddb"
+MONGODB_COLLECTION = "cadf_logs"
 
 
 
