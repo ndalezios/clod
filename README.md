@@ -16,4 +16,12 @@ optional arguments:
   ```
   python3 clod.py -i cs_events
   ```
+  
+  ### Executing CloD for OpenStack events file (raw_cadf_sample) and for CloudStack events file (cs_events)
+  ![Executing CLod](https://github.com/ndalezios/clod/blob/master/images/1.png)
+  
+  ### Using a MongoDB client (robo3T) to view Collections 
+  ![Viewing CADF Records](https://github.com/ndalezios/clod/blob/master/images/2.png)
+
+
 
